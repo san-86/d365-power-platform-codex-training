@@ -10,6 +10,9 @@ Northwind Service Group (NSG) has a fictional Dynamics 365 Customer Service solu
 
 A new consultant must create a concise internal onboarding guide for colleagues who will support Service Hub. The guide must be understandable by a consultant who knows Dynamics 365 but has not worked on this solution before.
 
+## Participant guide in the browser
+
+The session guide is available in [`docs/index.html`](docs/index.html). When GitHub Pages is enabled for the `main` branch `/docs` folder, participants can open it as a standalone browser page.
 ## Training objective
 
 Use Codex to practise this sequence:

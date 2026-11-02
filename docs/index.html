@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Hands-on Codex onboarding for new consultants.">
+  <title>Codex onboarding | Training guide</title>
+  <style>
+    :root {
+      --ink: #0f0f0f;
+      --body: #2a2e35;
+      --muted: #5e6671;
+      --line: #c9d6de;
+      --soft: #f1f5f7;
+      --purple: #5500ff;
+      --purple-dark: #4400cc;
+      --purple-wash: #ede6ff;
+      --white: #ffffff;
+      --ok: #126b45;
+      --ok-wash: #e4f5ec;
+      --warning: #805b00;
+      --warning-wash: #fff4d6;
+      --radius: 18px;
+      --shadow: 0 12px 40px rgba(15, 15, 15, .08);
+      font-family: "Segoe UI", SegoeUI, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--body); background: var(--soft); line-height: 1.5; }
+    a { color: var(--purple); }
+    button { font: inherit; }
+    .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+    .hero { color: var(--white); background: var(--ink); padding: 28px 0 60px; overflow: hidden; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { color: var(--white); font-weight: 700; letter-spacing: -.02em; text-decoration: none; }
+    .tag { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,.25); padding: 7px 11px; border-radius: 999px; font-size: .84rem; color: rgba(255,255,255,.85); }
+    .tag::before { content: ""; width: 8px; height: 8px; border-radius: 100%; background: #bfa8ff; }
+    .hero-grid { display: grid; grid-template-columns: 1.35fr .65fr; gap: 48px; align-items: end; padding-top: 64px; }
+    h1, h2, h3 { color: var(--ink); line-height: 1.08; margin: 0; letter-spacing: -.04em; }
+    .hero h1 { color: var(--white); font-size: clamp(2.5rem, 6vw, 5.3rem); max-width: 800px; }
+    .hero p { max-width: 680px; margin: 24px 0 0; font-size: clamp(1.05rem, 2vw, 1.35rem); color: rgba(255,255,255,.78); }
+    .hero-card { background: var(--purple); border-radius: var(--radius); padding: 24px; transform: rotate(2deg); box-shadow: 18px 18px 0 rgba(85,0,255,.25); }
+    .hero-card strong { display: block; font-size: 2.7rem; line-height: 1; margin-bottom: 6px; }
+    .hero-card span { font-size: .95rem; color: rgba(255,255,255,.86); }
+    .quick-nav { position: sticky; top: 0; z-index: 3; background: rgba(241,245,247,.94); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(15,15,15,.08); }
+    .quick-nav .shell { display: flex; gap: 4px; overflow-x: auto; padding: 10px 0; }
+    .quick-nav a { color: var(--body); text-decoration: none; white-space: nowrap; padding: 8px 10px; border-radius: 9px; font-size: .9rem; }
+    .quick-nav a:hover { color: var(--purple); background: var(--purple-wash); }
+    main { padding: 54px 0 84px; }
+    .section { margin-top: 72px; }
+    .section:first-child { margin-top: 0; }
+    .eyebrow { color: var(--purple); font-weight: 700; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 12px; }
+    .section > h2 { font-size: clamp(1.9rem, 4vw, 3.1rem); max-width: 780px; }
+    .section-intro { max-width: 720px; font-size: 1.12rem; margin: 16px 0 0; color: var(--muted); }
+    .notice { display: grid; grid-template-columns: auto 1fr; gap: 16px; margin-top: 26px; padding: 18px 20px; border-radius: 14px; background: var(--warning-wash); color: #634600; }
+    .notice-icon { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; color: white; background: var(--warning); font-weight: 800; }
+    .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
+    .rule, .card { background: var(--white); padding: 22px; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .rule-number { color: var(--purple); font-size: 1.7rem; font-weight: 750; }
+    .rule h3 { font-size: 1.15rem; margin: 18px 0 8px; }
+    .rule p { margin: 0; color: var(--muted); }
+    .timeline { display: grid; gap: 12px; margin-top: 30px; }
+    .timeline-row { display: grid; grid-template-columns: 130px 1fr; border-radius: 13px; overflow: hidden; border: 1px solid var(--line); background: var(--white); }
+    .timeline-time { padding: 17px 18px; background: var(--purple); color: var(--white); font-weight: 700; }
+    .timeline-copy { padding: 15px 20px; }
+    .timeline-copy strong { display: block; color: var(--ink); }
+    .timeline-copy span { color: var(--muted); font-size: .94rem; }
+    .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 30px; }
+    .step { background: var(--white); border: 1px solid var(--line); padding: 17px; border-radius: 13px; min-height: 155px; }
+    .step-index { color: var(--purple); font-weight: 800; font-size: .82rem; letter-spacing: .08em; }
+    .step h3 { margin: 18px 0 8px; font-size: 1.15rem; }
+    .step p { color: var(--muted); font-size: .93rem; margin: 0; }
+    .task-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px; }
+    .task { background: var(--white); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+    .task::after { content: ""; position: absolute; width: 130px; height: 130px; right: -50px; top: -50px; border: 24px solid var(--purple-wash); border-radius: 50%; }
+    .task-label { position: relative; z-index: 1; color: var(--purple); font-weight: 800; font-size: .84rem; text-transform: uppercase; letter-spacing: .1em; }
+    .task h3 { position: relative; z-index: 1; margin: 12px 0; font-size: 1.65rem; }
+    .task p { position: relative; z-index: 1; color: var(--muted); }
+    .task ul { position: relative; z-index: 1; padding-left: 20px; }
+    .task li { margin: 7px 0; }
+    .code-panel { margin-top: 18px; background: #15151a; color: #e9e6f7; border-radius: 14px; overflow: hidden; }
+    .code-top { display: flex; align-items: center; justify-content: space-between; padding: 11px 14px; background: #23232b; font-size: .8rem; color: #b7b4c8; }
+    pre { overflow-x: auto; white-space: pre-wrap; padding: 18px; margin: 0; font: .88rem/1.55 Consolas, "Courier New", monospace; }
+    .copy { color: var(--white); border: 0; border-radius: 8px; padding: 7px 10px; background: var(--purple); cursor: pointer; font-weight: 650; }
+    .copy:hover { background: var(--purple-dark); }
+    .copy:focus-visible, .check:focus-visible { outline: 3px solid #a98cff; outline-offset: 2px; }
+    .source-list { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
+    .source { border: 1px solid var(--line); background: var(--white); border-radius: 12px; padding: 16px; }
+    .source strong { display: block; color: var(--ink); margin-bottom: 4px; font-family: Consolas, monospace; font-size: .91rem; }
+    .source span { color: var(--muted); font-size: .9rem; }
+    .validation { margin-top: 30px; background: var(--ink); color: var(--white); border-radius: var(--radius); padding: 32px; }
+    .validation h2 { color: var(--white); }
+    .validation p { color: rgba(255,255,255,.76); max-width: 720px; }
+    .checks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 24px; margin-top: 25px; }
+    .check { display: flex; gap: 12px; align-items: flex-start; border: 0; text-align: left; border-radius: 10px; padding: 10px; background: transparent; color: rgba(255,255,255,.88); cursor: pointer; }
+    .check:hover { background: rgba(255,255,255,.08); }
+    .check-box { flex: 0 0 auto; width: 20px; height: 20px; border-radius: 5px; border: 2px solid rgba(255,255,255,.58); margin-top: 1px; }
+    .check.done .check-box { background: #bfa8ff; border-color: #bfa8ff; box-shadow: inset 0 0 0 4px var(--ink); }
+    .check.done span:last-child { text-decoration: line-through; color: rgba(255,255,255,.58); }
+    .callout { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; padding: 26px; margin-top: 30px; background: var(--ok-wash); color: #123d2a; border-radius: var(--radius); }
+    .callout h3 { color: #123d2a; font-size: 1.5rem; }
+    .callout p { margin: 8px 0 0; }
+    .callout strong { color: var(--ok); font-size: 1.4rem; }
+    footer { background: var(--ink); color: rgba(255,255,255,.64); padding: 30px 0; font-size: .9rem; }
+    footer .shell { display: flex; justify-content: space-between; gap: 16px; }
+    @media (max-width: 800px) {
+      .hero-grid, .task-grid, .source-list, .checks { grid-template-columns: 1fr; }
+      .hero-grid { gap: 35px; }
+      .hero-card { max-width: 260px; }
+      .rules { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .timeline-row { grid-template-columns: 1fr; }
+      .timeline-time { padding: 10px 16px; }
+      .callout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .shell { width: min(100% - 24px, 1180px); }
+      .hero { padding-bottom: 42px; }
+      .hero-grid { padding-top: 43px; }
+      .steps { grid-template-columns: 1fr; }
+      main { padding-top: 36px; }
+      .section { margin-top: 52px; }
+      footer .shell { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero" id="start">
+    <div class="shell">
+      <div class="topbar">
+        <a class="brand" href="#start">Codex onboarding</a>
+        <span class="tag">90 minute hands on session</span>
+      </div>
+      <div class="hero-grid">
+        <div>
+          <h1>Set up.<br>Inspect.<br>Build small.<br>Validate.</h1>
+          <p>A practical introduction to working safely and effectively with Codex on a fictional Dynamics 365 and Power Platform project.</p>
+        </div>
+        <aside class="hero-card" aria-label="Session outcome">
+          <strong>One safe workflow</strong>
+          <span>Take it into your next low risk task.</span>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <nav class="quick-nav" aria-label="Page sections">
+    <div class="shell">
+      <a href="#before">Before you start</a>
+      <a href="#journey">Your journey</a>
+      <a href="#task-one">Task 1</a>
+      <a href="#task-two">Task 2</a>
+      <a href="#validate">Validate</a>
+      <a href="#next">Next step</a>
+    </div>
+  </nav>
+
+  <main class="shell">
+    <section class="section" id="before">
+      <p class="eyebrow">Read first</p>
+      <h2>You are responsible for the outcome.</h2>
+      <p class="section-intro">Codex helps you understand, plan, create and review work. It does not replace your judgement, approval or responsibility.</p>
+      <div class="notice">
+        <div class="notice-icon">!</div>
+        <div><strong>Training only.</strong> This repository contains synthetic material. Do not paste customer, personal, confidential, production or credential data into this exercise.</div>
+      </div>
+      <div class="rules">
+        <article class="rule"><div class="rule-number">01</div><h3>Open the smallest useful workspace</h3><p>Give Codex one relevant project folder, not your entire drive or every client project.</p></article>
+        <article class="rule"><div class="rule-number">02</div><h3>Inspect before you act</h3><p>Ask Codex to understand instructions, source material and gaps before it changes anything.</p></article>
+        <article class="rule"><div class="rule-number">03</div><h3>Validate real evidence</h3><p>Open the actual output and compare it with the agreed acceptance criteria.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="journey">
+      <p class="eyebrow">The session</p>
+      <h2>Your 90 minute journey</h2>
+      <div class="timeline">
+        <div class="timeline-row"><div class="timeline-time">00:00–00:20</div><div class="timeline-copy"><strong>Set up and verify Codex</strong><span>Follow the approved internal setup. Then send a safe first prompt to prove that it works.</span></div></div>
+        <div class="timeline-row"><div class="timeline-time">00:20–00:30</div><div class="timeline-copy"><strong>Clone and open the project</strong><span>Use the training repository and open only its project folder in Codex.</span></div></div>
+        <div class="timeline-row"><div class="timeline-time">00:30–01:00</div><div class="timeline-copy"><strong>Inspect, find context and approve a plan</strong><span>Read the instructions, source files, specification and acceptance criteria before any writing starts.</span></div></div>
+        <div class="timeline-row"><div class="timeline-time">01:00–01:25</div><div class="timeline-copy"><strong>Build and validate one small change</strong><span>Create Section 1 only, then check it against the evidence.</span></div></div>
+        <div class="timeline-row"><div class="timeline-time">01:25–01:30</div><div class="timeline-copy"><strong>Transfer the pattern to real work</strong><span>Choose one low risk task where you will use the same approach.</span></div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <p class="eyebrow">Your operating model</p>
+      <h2>Five steps for controlled agentic delivery</h2>
+      <div class="steps">
+        <article class="step"><div class="step-index">STEP 01</div><h3>Workspace</h3><p>Open the correct, smallest project folder.</p></article>
+        <article class="step"><div class="step-index">STEP 02</div><h3>Inspect</h3><p>Ask what exists, which rules apply and what is missing.</p></article>
+        <article class="step"><div class="step-index">STEP 03</div><h3>Plan</h3><p>Agree scope, assumptions, files and validation before building.</p></article>
+        <article class="step"><div class="step-index">STEP 04</div><h3>Build small</h3><p>Make one bounded, reviewable change.</p></article>
+        <article class="step"><div class="step-index">STEP 05</div><h3>Validate</h3><p>Check the actual output, changed files and source evidence.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="task-one">
+      <p class="eyebrow">Task 1</p>
+      <h2>Inspect the project. Change nothing.</h2>
+      <p class="section-intro">Work in pairs. The Operator uses Codex. The Reviewer checks scope, challenges assumptions and decides whether the plan is safe to approve.</p>
+      <div class="task-grid">
+        <article class="task">
+          <div class="task-label">First, clone the repository</div>
+          <h3>Open one bounded workspace</h3>
+          <p>Clone the training project into <code>C:\Source\scratch</code>. Then open only the cloned project folder in Codex.</p>
+          <div class="code-panel">
+            <div class="code-top"><span>PowerShell</span><button class="copy" data-copy="clone-command">Copy</button></div>
+            <pre id="clone-command">New-Item -ItemType Directory -Force C:\Source\scratch | Out-Null
+Set-Location C:\Source\scratch
+git clone https://github.com/san-86/d365-power-platform-codex-training.git</pre>
+          </div>
+          <p><strong>Open in Codex:</strong><br><code>C:\Source\scratch\d365-power-platform-codex-training</code></p>
+        </article>
+        <article class="task">
+          <div class="task-label">Then, inspect only</div>
+          <h3>Ask Codex to understand first</h3>
+          <p>Paste this prompt. Do not let Codex create or edit anything yet.</p>
+          <div class="code-panel">
+            <div class="code-top"><span>Prompt</span><button class="copy" data-copy="inspect-prompt">Copy</button></div>
+            <pre id="inspect-prompt">Inspect this project without changing anything.
+
+Explain:
+1. The project purpose and the training task.
+2. The important folders and files.
+3. Which instructions and source files apply to the onboarding-guide feature.
+4. The facts that are established, and the information that is missing or unresolved.
+5. A short plan for creating the first section of the guide.
+
+List the files you read or would need to read. Do not create or change files. Wait for my approval before proceeding.</pre>
+          </div>
+        </article>
+      </div>
+      <div class="source-list">
+        <div class="source"><strong>AGENTS.md</strong><span>Project-wide rules: inspect first, do not invent facts and write only where permitted.</span></div>
+        <div class="source"><strong>features/onboarding-guide/AGENTS.md</strong><span>Feature-specific rules and required reading.</span></div>
+        <div class="source"><strong>Spec.md</strong><span>The outcome and scope: create Section 1 only.</span></div>
+        <div class="source"><strong>Acceptance-criteria.md</strong><span>The test for whether the output is good enough.</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="task-two">
+      <p class="eyebrow">Task 2</p>
+      <h2>Approve the plan. Build one small change.</h2>
+      <p class="section-intro">Before you continue, the Reviewer must agree that the plan is bounded, supported by the sources and safe to execute.</p>
+      <div class="task-grid">
+        <article class="task">
+          <div class="task-label">What to approve</div>
+          <h3>Check the plan before building</h3>
+          <ul>
+            <li>Does it name the relevant instructions and source files?</li>
+            <li>Is the output limited to Section 1?</li>
+            <li>Does it identify unresolved decisions?</li>
+            <li>Does it say only <code>output/Onboarding-guide.md</code> may change?</li>
+            <li>Does it explain how the result will be checked?</li>
+          </ul>
+        </article>
+        <article class="task">
+          <div class="task-label">Only after approval</div>
+          <h3>Create Section 1 only</h3>
+          <div class="code-panel">
+            <div class="code-top"><span>Prompt</span><button class="copy" data-copy="build-prompt">Copy</button></div>
+            <pre id="build-prompt">Create Section 1 only in output/Onboarding-guide.md.
+
+Use the applicable project instructions, specification, acceptance criteria and approved source material. Do not change files outside output/.
+
+Before completion:
+1. List every file changed.
+2. Validate the deliverable against each acceptance criterion.
+3. Flag unsupported claims, missing decisions or information that still requires human input.</pre>
+          </div>
+        </article>
+      </div>
+      <div class="callout">
+        <div><h3>Stop when information is missing.</h3><p>Do not invent a named escalation contact, a mailbox, a service-level response time or a system behaviour that the project sources do not prove.</p></div>
+        <strong>Flag the gap.</strong>
+      </div>
+    </section>
+
+    <section class="section validation" id="validate">
+      <p class="eyebrow" style="color:#bfa8ff">Validation</p>
+      <h2>Check the deliverable, not the completion message.</h2>
+      <p>Open <code>output/Onboarding-guide.md</code> and compare it with the acceptance criteria. Click each item as you verify it. Your progress is stored only in this browser.</p>
+      <div class="checks" id="checklist">
+        <button class="check" type="button" data-check="ac1"><span class="check-box"></span><span>The guide explains Service Hub in plain language.</span></button>
+        <button class="check" type="button" data-check="ac2"><span class="check-box"></span><span>The guide distinguishes registration from work starting.</span></button>
+        <button class="check" type="button" data-check="ac3"><span class="check-box"></span><span>It requires an assigned service team before In progress.</span></button>
+        <button class="check" type="button" data-check="ac4"><span class="check-box"></span><span>It describes the asset reference as optional at registration.</span></button>
+        <button class="check" type="button" data-check="ac5"><span class="check-box"></span><span>It does not invent an escalation contact, response time or unsupported automation.</span></button>
+        <button class="check" type="button" data-check="ac6"><span class="check-box"></span><span>It flags the unresolved service-owner contact clearly.</span></button>
+        <button class="check" type="button" data-check="ac7"><span class="check-box"></span><span>No files outside <code>output/</code> changed.</span></button>
+        <button class="check" type="button" data-check="ac8"><span class="check-box"></span><span>You can name the source evidence for every important statement.</span></button>
+      </div>
+    </section>
+
+    <section class="section" id="next">
+      <p class="eyebrow">Take it with you</p>
+      <h2>Your next Codex task should be small and real.</h2>
+      <p class="section-intro">Pick a low-risk task from your own work. Use the same pattern: smallest workspace, inspect, plan, build small, validate and escalate missing decisions.</p>
+      <div class="callout">
+        <div><h3>Make your commitment</h3><p>In my next Codex task, I will inspect <em>specific material</em>, make one small change, and validate the result using <em>specific evidence</em>.</p></div>
+        <strong>Human led.</strong>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell"><span>Codex onboarding training project</span><span>Synthetic D365 and Power Platform scenario</span></div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('[data-copy]').forEach(function (button) {
+      button.addEventListener('click', async function () {
+        const target = document.getElementById(button.dataset.copy);
+        try {
+          await navigator.clipboard.writeText(target.innerText);
+          const original = button.textContent;
+          button.textContent = 'Copied';
+          setTimeout(function () { button.textContent = original; }, 1600);
+        } catch (error) {
+          button.textContent = 'Select text';
+        }
+      });
+    });
+
+    const savedChecks = JSON.parse(localStorage.getItem('codex-training-checks') || '{}');
+    document.querySelectorAll('.check').forEach(function (button) {
+      const key = button.dataset.check;
+      if (savedChecks[key]) button.classList.add('done');
+      button.addEventListener('click', function () {
+        button.classList.toggle('done');
+        savedChecks[key] = button.classList.contains('done');
+        localStorage.setItem('codex-training-checks', JSON.stringify(savedChecks));
+      });
+    });
+  </script>
+</body>
+</html>
